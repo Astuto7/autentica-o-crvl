@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Autenticação Veicular</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card border-success shadow-sm">
+                    <div class="card-header bg-success text-white text-center py-3">
+                        <h4 class="mb-0">✅ Certificado de Garantia & Autenticidade</h4>
+                        <small>Oficina Mecânica Especializada</small>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            {% if registro.qr_code_file %}
+                            <img src="{{ url_for('static', filename='qr/' + registro.qr_code_file) }}" alt="QR Code" width="130" class="border p-1 rounded">
+                            {% endif %}
+                            <p class="text-muted small mt-2">Código de Verificação: <strong>{{ registro.token }}</strong></p>
+                        </div>
+
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between"><strong>Veículo:</strong> <span>{{ registro.veiculo }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between"><strong>Placa:</strong> <span class="badge bg-dark fs-6">{{ registro.placa }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between"><strong>Proprietário:</strong> <span>{{ registro.proprietario }}</span></li>
+                            <li class="list-group-item d-flex justify-content-between"><strong>Data:</strong> <span>{{ registro.data_autenticacao.strftime('%d/%m/%Y às %H:%M') }}</span></li>
+                        </ul>
+
+                        <div class="p-3 bg-white border rounded">
+                            <h6>Serviços Realizados:</h6>
+                            <p class="mb-0 text-secondary">{{ registro.servico }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-muted small py-2">
+                        Registro oficial validado pelo sistema de certificação da oficina.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
