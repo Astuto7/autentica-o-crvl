@@ -1,1 +1,42 @@
+{% extends 'layout_admin.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Veículos Autenticados</h3>
+    <a href="{{ url_for('admin.create_auth') }}" class="btn btn-primary">+ Cadastrar Autenticação</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Data</th>
+                    <th>Placa</th>
+                    <th>Veículo</th>
+                    <th>Proprietário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in registros %}
+                <tr>
+                    <td>{{ item.data_autenticacao.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td><span class="badge bg-secondary">{{ item.placa }}</span></td>
+                    <td>{{ item.veiculo }}</td>
+                    <td>{{ item.proprietario }}</td>
+                    <td>
+                        <a href="{{ url_for('auth.view_record', token=item.token) }}" target="_blank" class="btn btn-sm btn-outline-info">Ver Laudo</a>
+                        <a href="{{ url_for('static', filename='qr/' + item.qr_code_file) }}" target="_blank" class="btn btn-sm btn-outline-dark">QR Code</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">Nenhum laudo cadastrado até o momento.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
 
