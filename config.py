@@ -1,10 +1,9 @@
 import os
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-oficina-123')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'chave-secreta-oficina-777')
     
-    db_url = os.getenv('DATABASE_URL', 'sqlite:///auth.db')
-    # Corrige a compatibilidade de URL do Postgres no Render
+    db_url = os.environ.get('DATABASE_URL', 'sqlite:///oficina.db')
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
         
